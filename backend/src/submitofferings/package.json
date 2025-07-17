@@ -1,0 +1,17 @@
+{
+  "name": "submit-offerings",
+  "version": "1.0.0",
+  "description": "Lambda function to handle offering submissions and M-Pesa STK push",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1420.0",
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

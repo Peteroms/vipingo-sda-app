@@ -50,10 +50,10 @@ const OfferingsForm = () => {
         body: JSON.stringify(submission),
       });
 
-      if (!res.ok) throw new Error("Failed to submit");
+      if (!res.ok) throw new Error("Failed to iniiate M-Pesa transaction");
 
       const result = await res.json();
-      setStatus({ success: true, message: result.message || "Submission successful. SMS will follow." });
+      setStatus({ success: true, message: result.message || "M-Pesa STK. SMS will follow." });
     } catch (err) {
       setStatus({ success: false, message: "Error submitting offering. Try again later." });
     }
