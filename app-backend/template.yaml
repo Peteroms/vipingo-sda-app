@@ -1,41 +1,186 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  app-backend
+Description: Vipingo SDA Church App Backend (Offerings + Announcements + Media Gallery)
 
-  Sample SAM Template for app-backend
-  
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Runtime: nodejs18.x
+    Timeout: 20
+    MemorySize: 256
+
+Parameters:
+  MpesaConsumerKey:
+    Type: String
+    NoEcho: true
+  MpesaConsumerSecret:
+    Type: String
+    NoEcho: true
+  MpesaShortcode:
+    Type: String
+  MpesaPaaKey:
+    Type: String
+    NoEcho: true
 
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # 🔔 SNS Topic for Treasurer Alerts
+  OfferingAlertTopic:
+    Type: AWS::SNS::Topic
     Properties:
-      CodeUri: hello-world/
-      Handler: app.lambdaHandler
-      Runtime: nodejs18.x
-      Architectures:
-        - x86_64
+      TopicName: OfferingAlertTopic
+
+  OfferingAlertSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref OfferingAlertTopic
+      Protocol: sms
+      Endpoint: "+254755806579"
+
+  # 🔶 Offerings Submission Lambda
+  SubmitOfferingsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: SubmitOfferingsFunction
+      Handler: app.handler
+      CodeUri: src/submitOfferings
       Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        SubmitApi:
+          Type: Api
           Properties:
-            Path: /hello
+            Path: /submit
+            Method: post
+            Cors:
+              AllowMethods: "'POST,OPTIONS'"
+              AllowHeaders: "'Content-Type'"
+              AllowOrigin: "'*'"
+      Environment:
+        Variables:
+          DYNAMO_TABLE: ChurchOfferings
+          SNS_TOPIC_ARN: !Ref OfferingAlertTopic
+          MPESA_CONSUMER_KEY: !Ref MpesaConsumerKey
+          MPESA_CONSUMER_SECRET: !Ref MpesaConsumerSecret
+          MPESA_SHORTCODE: !Ref MpesaShortcode
+          MPESA_PAAKEY: !Ref MpesaPaaKey
+          MPESA_ENV: "sandbox" # Change to "production" for live
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt OfferingsTable.Arn
+            - Effect: Allow
+              Action:
+                - sns:Publish
+              Resource: !Ref 
+        - statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: "*"
+
+
+  # 🔶 Announcements Fetch Lambda
+  GetAnnouncementsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GetAnnouncementsFunction
+      Handler: app.handler
+      CodeUri: src/getAnnouncements
+      Events:
+        GetAnnouncementsApi:
+          Type: Api
+          Properties:
+            Path: /announcements
             Method: get
+            Cors:
+              AllowMethods: "'GET,OPTIONS'"
+              AllowHeaders: "'Content-Type'"
+              AllowOrigin: "'*'"
+      Environment:
+        Variables:
+          TABLE_NAME: Announcements
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Scan
+                - dynamodb:GetItem
+              Resource: !GetAtt AnnouncementsTable.Arn
+
+  # 🔶 Gallery Fetch Lambda
+  GetGalleryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GetGalleryFunction
+      Handler: app.handler
+      CodeUri: src/getGallery
+      Events:
+        GetGalleryApi:
+          Type: Api
+          Properties:
+            Path: /gallery
+            Method: get
+            Cors:
+              AllowMethods: "'GET,OPTIONS'"
+              AllowHeaders: "'Content-Type'"
+              AllowOrigin: "'*'"
+      Environment:
+        Variables:
+          TABLE_NAME: Gallery
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Scan
+                - dynamodb:GetItem
+              Resource: !GetAtt GalleryTable.Arn
+
+  # 🔷 DynamoDB Tables
+  OfferingsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ChurchOfferings
+      BillingMode: PAYPERREQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  AnnouncementsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Announcements
+      BillingMode: PAYPERREQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  GalleryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Gallery
+      BillingMode: PAYPERREQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  OfferingsApi:
+    Description: "POST endpoint for submitting offerings"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/submit"
+
+  AnnouncementsApi:
+    Description: "GET endpoint for announcements"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/announcements"
+
+  GalleryApi:
+    Description: "GET endpoint for gallery images"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/gallery"
