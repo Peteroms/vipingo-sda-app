@@ -1,25 +1,35 @@
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Offerings from './pages/Offerings';
-import Announcements from './pages/Announcements';
+import SabbathSchool from './pages/SabbathSchool';
+import OnlineService from './pages/OnlineService';
+import OnlineGiving from './pages/OnlineGiving';
+import Ministries from './pages/Ministries';
+import ContactUs from './pages/ContactUs';
+import Footer from './components/Footer';
+import './index.css';
 
-const App = () => (
-  <div className="min-h-screen bg-gray-100 text-gray-900">
-    <nav className="bg-white p-4 shadow">
-      <ul className="flex space-x-4">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/offerings">Offerings</Link></li>
-        <li><Link to="/announcements">Announcements</Link></li>
-      </ul>
-    </nav>
-
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/offerings" element={<Offerings />} />
-      <Route path="/announcements" element={<Announcements />} />
-    </Routes>
-  </div>
-);
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sabbath-school" element={<SabbathSchool />} />
+            <Route path="/online-service" element={<OnlineService />} />
+            <Route path="/online-giving" element={<OnlineGiving />} />
+            <Route path="/ministries" element={<Ministries />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
 
 export default App;
+// This code sets up the main application structure using React Router.
+// It includes a Navbar for navigation, a main section for different pages,
