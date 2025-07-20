@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // created this file for navbar-specific styles
+import './Navbar.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  // Check screen size on mount and resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -15,7 +14,7 @@ const Navbar = () => {
       }
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -27,10 +26,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">VIPINGO SEVENTH-DAY ADVENTIST CHURCH®</Link>
+        <Link to="/">VIPINGO SEVENTH-DAY ADVENTIST®</Link>
       </div>
 
-      {/* Mobile menu button (hamburger) */}
       {isMobileView && (
         <button 
           className="mobile-menu-button"
@@ -43,8 +41,8 @@ const Navbar = () => {
         </button>
       )}
 
-      {/* Navigation links - shows differently based on mobile/desktop */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+        <Link to="/" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>HOME</Link>
         <Link to="/sabbath-school" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>SABBATH SCHOOL</Link>
         <Link to="/online-service" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>ONLINE SERVICE</Link>
         <Link to="/online-giving" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>ONLINE GIVING</Link>

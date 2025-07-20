@@ -7,7 +7,7 @@
   --primary-color: #1a5276;
   --secondary-color: #2980b9;
   --accent-color: #e67e22;
-  --light-color: #f9f9f9;
+  --light-color: #f8f1f1;
   --dark-color: #333;
   --text-color: #333;
   --text-light: #fff;
@@ -368,5 +368,99 @@ button[type="submit"]:hover {
 
   .page {
     padding: 1rem;
+  }
+}
+
+/* Home Page Styles */
+.home-banner {
+  width: 100%;
+  margin-bottom: 0; /* Removed gap between banner and welcome */
+}
+
+.home-banner .slick-slide {
+  height: 50vh;
+  max-height: 500px;
+  min-height: 300px;
+}
+
+.home-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.welcome-section {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 3rem 1rem;
+}
+
+.welcome-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.welcome-card h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.welcome-subtitle {
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: var(--accent-color);
+}
+
+.welcome-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.service-times {
+  list-style-type: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.service-times li {
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+/* Slider Dots */
+.slick-dots {
+  bottom: 20px;
+}
+
+.slick-dots li button:before {
+  color: white;
+  opacity: 0.5;
+  font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: white;
+  opacity: 1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .home-banner .slick-slide {
+    height: 40vh;
+    min-height: 250px;
+  }
+
+  .welcome-card h1 {
+    font-size: 1.8rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.1rem;
   }
 }

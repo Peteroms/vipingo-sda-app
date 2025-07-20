@@ -1,4 +1,4 @@
-/* Navbar base styles */
+/* Navbar Styles */
 .navbar {
   background-color: var(--primary-color);
   color: var(--text-light);
@@ -8,6 +8,7 @@
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
+  z-index: 100;
 }
 
 .navbar-brand a {
@@ -16,9 +17,13 @@
   font-weight: bold;
   font-size: 1.2rem;
   letter-spacing: 0.5px;
+  transition: opacity 0.3s;
 }
 
-/* Desktop navigation links */
+.navbar-brand a:hover {
+  opacity: 0.9;
+}
+
 .navbar-links {
   display: flex;
   gap: 1.5rem;
@@ -28,28 +33,42 @@
   color: var(--text-light);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
   font-size: 0.95rem;
   letter-spacing: 0.5px;
   padding: 0.5rem 0;
+  position: relative;
 }
 
 .navbar-links a:hover {
   color: var(--accent-color);
 }
 
-/* Mobile menu button */
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* Mobile Menu Button */
 .mobile-menu-button {
   background: none;
   border: none;
   cursor: pointer;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   height: 24px;
   width: 30px;
   padding: 0;
-  z-index: 100;
 }
 
 .hamburger-line {
@@ -71,11 +90,15 @@
   transform: translateY(-10px) rotate(-45deg);
 }
 
-/* Mobile view styles */
+/* Mobile Styles */
 @media (max-width: 768px) {
   .navbar {
+    flex-direction: column;
     padding: 1rem;
-    flex-wrap: wrap;
+  }
+
+  .mobile-menu-button {
+    display: flex;
   }
 
   .navbar-links {
@@ -88,16 +111,17 @@
   }
 
   .navbar-links.mobile-open {
-    max-height: 500px; /* Adjust based on your content */
+    max-height: 500px;
     padding: 1rem 0;
   }
 
   .navbar-links a {
     padding: 1rem;
+    text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .navbar-links a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  .navbar-links a::after {
+    display: none;
   }
 }
