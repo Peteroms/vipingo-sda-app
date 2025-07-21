@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">VIPINGO SEVENTH-DAY ADVENTIST®</Link>
+        <Link to="/">VIPINGO SEVENTH-DAY ADVENTIST CHURCH®</Link>
       </div>
 
       {isMobileView && (
