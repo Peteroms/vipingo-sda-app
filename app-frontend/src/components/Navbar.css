@@ -6,8 +6,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(240, 147, 71, 0.1);
   position: relative;
+  top: 0;
   z-index: 100;
 }
 
@@ -24,6 +25,17 @@
   opacity: 0.9;
 }
 
+.navbar-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 55px;
+  width: auto;
+  margin-right: 1rem;
+  transition: transform 0.3s;
+}
 .navbar-links {
   display: flex;
   gap: 1.5rem;

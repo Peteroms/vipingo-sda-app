@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import banner5 from '../assets/banner5.jpg'; 
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,9 +26,14 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+        <div className="navbar-logo-container">
       <div className="navbar-brand">
-        <Link to="/">VIPINGO SEVENTH-DAY ADVENTIST CHURCH®</Link>
-      </div>
+        <img src={banner5} alt="Vipingo SDA Church Logo" className="navbar-logo" />
+        </div>
+
+        <h4>VIPINGO SEVENTH-DAY ADVENTIST® CHURCH </h4>
+        </div>
+
 
       {isMobileView && (
         <button 

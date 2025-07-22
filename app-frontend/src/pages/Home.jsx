@@ -36,13 +36,13 @@ const Home = () => {
 
       <div className="welcome-section">
         <div className="welcome-card">
-          <h1>Welcome to Vipingo Seventh-day Adventist Church</h1>
-          <p className="welcome-subtitle">"Where faith, hope, and love come together"</p>
+          <h3>Vipingo SDA Church is a community that firmly believes in God's Word.</h3>
+          <p className="welcome-subtitle">Our Mission:"Make disciples of Jesus Christ and proclaim the everlasting gospel of the Three Angels' Messages of Rev 14:6-12"</p>
           <div className="welcome-content">
             <p>Join us for worship and fellowship every Sabbath as we grow together in Christ.</p>
             <p>Saturday Services:</p>
             <ul className="service-times">
-              <li>Sabbath School: 9:30 AM</li>
+              <li>Sabbath School: 8:30 AM</li>
               <li>Divine Service: 11:00 AM</li>
             </ul>
           </div>

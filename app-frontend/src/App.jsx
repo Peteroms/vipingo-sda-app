@@ -12,9 +12,12 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <div className="app">
+      <div className="flex flex-col min-h-screen w-full bg-white overflow-x-hidden">
+        {/* Navbar stays on top */}
         <Navbar />
-        <main>
+
+        {/* Main Content: flex-grow pushes footer to bottom */}
+        <main className="flex-grow w-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sabbath-school" element={<SabbathSchool />} />
@@ -24,6 +27,8 @@ function App() {
             <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </main>
+
+        {/* Footer at the bottom */}
         <Footer />
       </div>
     </Router>
@@ -31,5 +36,3 @@ function App() {
 }
 
 export default App;
-// This code sets up the main application structure using React Router.
-// It includes a Navbar for navigation, a main section for different pages,
