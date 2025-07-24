@@ -16,6 +16,11 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
+stack_name = "vipingo-sda-church"
+s3_prefix = "vipingo-sda-church"
+region = "us-east-1"
+parameter_overrides = "MpesaShortCode=\"6657778\" TreasurerPhoneNumber=\"+254755806579\""
+image_repositories = []
 
 [default.package.parameters]
 resolve_s3 = true

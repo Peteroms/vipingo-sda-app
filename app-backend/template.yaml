@@ -1,186 +1,138 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Vipingo SDA Church App Backend (Offerings + Announcements + Media Gallery)
+Description: Vipingo SDA Church Giving Backend
 
 Globals:
   Function:
+    Timeout: 10
     Runtime: nodejs18.x
-    Timeout: 20
     MemorySize: 256
 
 Parameters:
+  MpesaShortCode:
+    Type: String
+    Description: M-Pesa Short Code
   MpesaConsumerKey:
     Type: String
+    Description: M-Pesa Consumer Key
     NoEcho: true
   MpesaConsumerSecret:
     Type: String
+    Description: M-Pesa Consumer Secret
     NoEcho: true
-  MpesaShortcode:
+  MpesaPasskey:
     Type: String
-  MpesaPaaKey:
-    Type: String
+    Description: M-Pesa Passkey
     NoEcho: true
+  TreasurerPhoneNumber:
+    Type: String
+    Description: Phone number for Treasurer notifications
 
 Resources:
-
-  # 🔔 SNS Topic for Treasurer Alerts
-  OfferingAlertTopic:
-    Type: AWS::SNS::Topic
+  ### API Gateway
+  GivingApi:
+    Type: AWS::Serverless::Api
     Properties:
-      TopicName: OfferingAlertTopic
+      StageName: prod
+      Cors:
+        AllowOrigin: "'http://localhost:5173'" 
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+        AllowMethods: "'POST,GET,OPTIONS,PUT,DELETE'"
+        AllowCredentials: "'true'"
 
-  OfferingAlertSubscription:
-    Type: AWS::SNS::Subscription
-    Properties:
-      TopicArn: !Ref OfferingAlertTopic
-      Protocol: sms
-      Endpoint: "+254755806579"
-
-  # 🔶 Offerings Submission Lambda
-  SubmitOfferingsFunction:
+  ### Lambda: Giving
+  GivingFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: SubmitOfferingsFunction
-      Handler: app.handler
-      CodeUri: src/submitOfferings
+      CodeUri: lambdas/giving/
+      Handler: giving.handler
       Events:
-        SubmitApi:
+        GivingPost:
           Type: Api
           Properties:
-            Path: /submit
+            Path: /giving
             Method: post
-            Cors:
-              AllowMethods: "'POST,OPTIONS'"
-              AllowHeaders: "'Content-Type'"
-              AllowOrigin: "'*'"
+            RestApiId: !Ref GivingApi
       Environment:
         Variables:
           DYNAMO_TABLE: ChurchOfferings
-          SNS_TOPIC_ARN: !Ref OfferingAlertTopic
+          SNS_TOPIC_ARN: !Ref TreasurerSnsTopic
+          MPESA_SHORTCODE: !Ref MpesaShortCode
           MPESA_CONSUMER_KEY: !Ref MpesaConsumerKey
           MPESA_CONSUMER_SECRET: !Ref MpesaConsumerSecret
-          MPESA_SHORTCODE: !Ref MpesaShortcode
-          MPESA_PAAKEY: !Ref MpesaPaaKey
-          MPESA_ENV: "sandbox" # Change to "production" for live
+          MPESA_PASSKEY: !Ref MpesaPasskey
+          TreasurerPhoneNumber: !Ref TreasurerPhoneNumber
+          MPESA_CALLBACK_URL: https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/mpesa-callback
       Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:PutItem
-              Resource: !GetAtt OfferingsTable.Arn
-            - Effect: Allow
-              Action:
-                - sns:Publish
-              Resource: !Ref 
-        - statement:
-            - Effect: Allow
-              Action:
-                - secretsmanager:GetSecretValue
-              Resource: "*"
+        - DynamoDBCrudPolicy:
+            TableName: ChurchOfferings
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt TreasurerSnsTopic.TopicName
 
-
-  # 🔶 Announcements Fetch Lambda
-  GetAnnouncementsFunction:
+  ### Lambda: M-Pesa Payment
+  MpesaPayFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: GetAnnouncementsFunction
-      Handler: app.handler
-      CodeUri: src/getAnnouncements
+      CodeUri: lambdas/mpesa/
+      Handler: mpesa.handler
       Events:
-        GetAnnouncementsApi:
+        MpesaPost:
           Type: Api
           Properties:
-            Path: /announcements
-            Method: get
-            Cors:
-              AllowMethods: "'GET,OPTIONS'"
-              AllowHeaders: "'Content-Type'"
-              AllowOrigin: "'*'"
+            Path: /mpesa/
+            Method: post
+            RestApiId: !Ref GivingApi
       Environment:
         Variables:
-          TABLE_NAME: Announcements
-      Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:Scan
-                - dynamodb:GetItem
-              Resource: !GetAtt AnnouncementsTable.Arn
+          MPESA_SHORTCODE: !Ref MpesaShortCode
+          MPESA_CONSUMER_KEY: !Ref MpesaConsumerKey
+          MPESA_CONSUMER_SECRET: !Ref MpesaConsumerSecret
+          MPESA_PASSKEY: !Ref MpesaPasskey
+          MPESA_CALLBACK_URL: https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/mpesa-callback
 
-  # 🔶 Gallery Fetch Lambda
-  GetGalleryFunction:
+  ### Lambda: Send SMS
+  SendSmsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: GetGalleryFunction
-      Handler: app.handler
-      CodeUri: src/getGallery
+      CodeUri: lambdas/sms/
+      Handler: sms.handler
       Events:
-        GetGalleryApi:
+        SmsPost:
           Type: Api
           Properties:
-            Path: /gallery
-            Method: get
-            Cors:
-              AllowMethods: "'GET,OPTIONS'"
-              AllowHeaders: "'Content-Type'"
-              AllowOrigin: "'*'"
+            Path: /sms/
+            Method: post
+            RestApiId: !Ref GivingApi
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt TreasurerSnsTopic.TopicName
       Environment:
         Variables:
-          TABLE_NAME: Gallery
-      Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - dynamodb:Scan
-                - dynamodb:GetItem
-              Resource: !GetAtt GalleryTable.Arn
+          SNS_TOPIC_ARN: !Ref TreasurerSnsTopic
 
-  # 🔷 DynamoDB Tables
-  OfferingsTable:
+  ### SNS Topic for Treasurer Notifications
+  TreasurerSnsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: TreasurerNotifications
+
+  ### Treasurer SMS Subscription
+  TreasurerSnsSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref TreasurerSnsTopic
+      Protocol: sms
+      Endpoint: !Ref TreasurerPhoneNumber
+
+  ## DynamoDB Table
+  ChurchOfferingsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: ChurchOfferings
-      BillingMode: PAYPERREQUEST
+      BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: TransactionID
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: TransactionID
           KeyType: HASH
-
-  AnnouncementsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: Announcements
-      BillingMode: PAYPERREQUEST
-      AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-
-  GalleryTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: Gallery
-      BillingMode: PAYPERREQUEST
-      AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-
-Outputs:
-  OfferingsApi:
-    Description: "POST endpoint for submitting offerings"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/submit"
-
-  AnnouncementsApi:
-    Description: "GET endpoint for announcements"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/announcements"
-
-  GalleryApi:
-    Description: "GET endpoint for gallery images"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/gallery"
