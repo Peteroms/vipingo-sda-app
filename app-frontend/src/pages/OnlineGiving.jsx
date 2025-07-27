@@ -24,6 +24,7 @@ const OnlineGiving = () => {
   const [total, setTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   // Calculate total whenever giving amounts change
   useEffect(() => {
@@ -46,10 +47,73 @@ const OnlineGiving = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg('');
+    setSubmitSuccess(false);
+
+    const payload = {
+      ...formData,
+      total: total,
+      timestamp: new Date().toISOString()
+    };
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Simulate API call. Submit form data to DynamoDB.
+      const response = await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/giving', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit giving, please try again.');
+      }
+
+      // Trigger M-Pesa STK Push
+      const mpesaResponse = await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/mpesa/pay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone: formData.mpesaNumber,
+          amount: total,
+          transactionId: `GIVING-${Date.now()}`
+        })
+      });
+
+      if (!mpesaResponse.ok) {
+        throw new Error('Failed to initiate M-Pesa payment.');
+      }
+
+      // Send SMS nottifications
+      const smsMessage = `Thank you ${formData.name} for your giving of KSh ${total} to Vipingo SDA Church.`;
+
+      const treasurerMessage = `New giving received:\nName: ${formData.name}\nAmount: KSh ${total}\nCategory: ${formData.membership}`;
+
+      await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/sms/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone: formData.mpesaNumber,
+          message: smsMessage
+        })
+      });
+
+      await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/sms/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone: process.env.TreasurerPnoneNumber, // Replace with actual treasurer's phone
+          message: treasurerMessage
+        })
+      });
+
       setSubmitSuccess(true);
       setFormData({
         name: '',
@@ -248,6 +312,13 @@ const OnlineGiving = () => {
               Thank you for your giving! A payment request has been sent to your M-Pesa number.
             </div>
           )}
+
+          {errorMsg && (
+            <div className="error-message">
+              {errorMsg}
+            </div>
+          )}
+
         </form>
       </div>
     </div>
