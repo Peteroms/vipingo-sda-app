@@ -1,3 +1,5 @@
+import React from 'react';
+
 const OnlineService = () => {
   return (
     <div className="page online-service">
