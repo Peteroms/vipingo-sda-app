@@ -14,7 +14,7 @@ const Ministries = () => {
       ]
     },
     family: {
-      title: "Home Ministry",
+      title: "Family Ministry",
       announcements: [
         "Family Retreat - August 12-14 at Shimba Hills",
         "Marriage Enrichment Seminar - Every Friday at 5:00 PM",
@@ -32,17 +32,14 @@ const Ministries = () => {
     personal: {
       title: "Personal Ministry",
       announcements: [
-        "Bible Study Training - July 30 at 3:00 PM",
+        "Camp Meeting - August 10th to 16th 2025",
         "Evangelism Campaign - August 1-7",
-        "Literature Distribution - Every Sunday afternoon"
       ]
     },
     sabbathSchool: {
       title: "Sabbath School",
       announcements: [
-        "Quarterly Lesson Study - Every Sabbath at 9:30 AM",
-        "Sabbath School Teachers Meeting - Last Friday of the month",
-        "Special Lesson Review - July 30 at 4:00 PM"
+        "Quarterly Lesson Study - Every Sabbath at 8:30 AM",
       ]
     },
     women: {
@@ -66,15 +63,14 @@ const Ministries = () => {
       announcements: [
         "Youth Rally - July 30 at 4:00 PM",
         "Sports Day - Every Sunday afternoon",
-        "Music Festival - August 13"
+        "Maamba District Music Sabbath - September"
       ]
     },
     publishing: {
       title: "Publishing Ministry",
       announcements: [
         "Literature Evangelism Training - July 24 at 10:00 AM",
-        "Magazine Distribution - Every Sabbath afternoon",
-        "Book Fair - August 20-21"
+        "Discovery/VoP study guides - Registration ongoing",
       ]
     }
   };
