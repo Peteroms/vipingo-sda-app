@@ -14,7 +14,7 @@ const Ministries = () => {
       ]
     },
     family: {
-      title: "Family Ministry",
+      title: "Home Ministry",
       announcements: [
         "Family Retreat - August 12-14 at Shimba Hills",
         "Marriage Enrichment Seminar - Every Friday at 5:00 PM",
