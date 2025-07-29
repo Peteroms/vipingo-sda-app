@@ -36,10 +36,9 @@ const Home = () => {
 
       <div className="welcome-section">
         <div className="welcome-card">
-          <h3>Vipingo SDA Church is a community that firmly believes in God's Word.</h3>
-          <p className="welcome-subtitle">Our Mission:"Make disciples of Jesus Christ and proclaim the everlasting gospel of the Three Angels' Messages of Rev 14:6-12"</p>
+          <p className="welcome-subtitle">"Making disciples of Jesus Christ and proclaim the everlasting gospel of the Three Angels' Messages in Revelation 14:6-12"</p>
           <div className="welcome-content">
-            <p>Join us for worship and fellowship every Sabbath as we grow together in Christ.</p>
+            
             <p>Saturday Services:</p>
             <ul className="service-times">
               <li>Sabbath School: 8:30 AM</li>
