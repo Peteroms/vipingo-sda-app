@@ -36,13 +36,12 @@ const Home = () => {
 
       <div className="welcome-section">
         <div className="welcome-card">
-          <p className="welcome-subtitle">"Making disciples of Jesus Christ and proclaim the everlasting gospel of the Three Angels' Messages in Revelation 14:6-12"</p>
+          <p className="welcome-subtitle">"Making disciples of Jesus Christ by proclaiming the everlasting gospel of the Three Angels' Messages - Revelation 14:6-12"</p>
           <div className="welcome-content">
             
-            <p>Saturday Services:</p>
             <ul className="service-times">
-              <li>Sabbath School: 8:30 AM</li>
-              <li>Divine Service: 11:00 AM</li>
+              <li>Friday: 5:00 pm to 6:30 pm</li>
+              <li>Saturday: 8:00 am to 4:30 pm</li>
             </ul>
           </div>
         </div>

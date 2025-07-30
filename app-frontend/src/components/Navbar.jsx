@@ -51,9 +51,9 @@ const Navbar = () => {
         <Link to="/" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>HOME</Link>
         <Link to="/sabbath-school" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>SABBATH SCHOOL</Link>
         <Link to="/online-service" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>ONLINE SERVICE</Link>
-        <Link to="/online-giving" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>ONLINE GIVING</Link>
+        <Link to="/online-giving" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>GIVING</Link>
         <Link to="/ministries" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>MINISTRIES</Link>
-        <Link to="/contact-us" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>CONTACT US</Link>
+        <Link to="/contact-us" onClick={() => isMobileView && setIsMobileMenuOpen(false)}>CONTACT</Link>
       </div>
     </nav>
   );

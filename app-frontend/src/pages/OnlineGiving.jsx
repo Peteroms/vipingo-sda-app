@@ -138,9 +138,9 @@ const OnlineGiving = () => {
   return (
     <div className="giving-page">
       <div className="giving-container">
-        <h1>Online Giving</h1>
+        <h1> Giving Form</h1>
         <p className="giving-intro">
-          "Each of you should give what you have decided in your heart to give..."
+           “Bring the whole tithe into the storehouse... Test me in this,” says the Lord Almighty, “and see if I will not throw open the floodgates of heaven...” - Malachi 3:10
         </p>
 
         <form onSubmit={handleSubmit} className="giving-form">

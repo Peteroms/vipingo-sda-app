@@ -7,9 +7,9 @@ const SabbathSchool = () => {
     <div className="page sabbath-school">
       <h1>Sabbath School</h1>
       <div className="content">
-        <p>Join us for Sabbath School every Saturday at 8:30 AM</p>
+        <p>Sabbath School is the SDA Church's organized approach to Bible study, mission focus, and fellowship, forming an essential part of spiritual life and community every Sabbath morning</p>
         <div className="lesson-section">
-          <h2>This Week's Lesson</h2>
+          <h2>Quarterly Lesson Studies</h2>
           <p>
             <a 
               href="https://www.sabbath.school/" 
@@ -17,7 +17,7 @@ const SabbathSchool = () => {
               rel="noopener noreferrer"
               className="lesson-link"
             >
-              Click here to access the weekly lesson study Series.
+              This week's lesson.
             </a>
           </p>
         </div>
