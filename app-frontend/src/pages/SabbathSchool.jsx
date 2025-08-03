@@ -70,7 +70,7 @@ const SabbathSchool = () => {
               rel="noopener noreferrer"
               className="lesson-link"
             >
-              <strong>Visit Junior PowerPoints</strong>
+              <strong>Junior PowerPoint Guide</strong>
             </a>
           </p>
         </div>
