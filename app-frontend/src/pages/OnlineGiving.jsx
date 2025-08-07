@@ -12,7 +12,7 @@ const OnlineGiving = () => {
     campMeetingOffering: 0,
     campMeetingExpenses: 0,
     thanksgiving: 0,
-    welfare: 0
+    evangelism: 0
   });
 
   const membershipOptions = [
@@ -126,7 +126,7 @@ const OnlineGiving = () => {
         campMeetingOffering: 0,
         campMeetingExpenses: 0,
         thanksgiving: 0,
-        welfare: 0
+        evangelism: 0
       });
     } catch (error) {
       console.error('Submission error:', error);
@@ -279,11 +279,11 @@ const OnlineGiving = () => {
               </div>
               
               <div className="form-group">
-                <label htmlFor="welfare">Welfare</label>
+                <label htmlFor="evangelism">Evangelistic Missions</label>
                 <input
                   type="number"
-                  id="welfare"
-                  name="welfare"
+                  id="evangelism"
+                  name="evangelism"
                   value={formData.welfare}
                   onChange={handleChange}
                   min="0"
