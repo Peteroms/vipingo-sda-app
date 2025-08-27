@@ -89,7 +89,7 @@ const ContactUs = () => {
 
         {/* Right Column: Contact Form */}
         <div className="contact-form">
-          <h2>Send us a message</h2>
+          <h2>Request for prayers, visitations or inquries.</h2>
           {submitStatus && (
             <div className={`alert ${submitStatus.success ? 'success' : 'error'}`}>
               {submitStatus.message}
@@ -108,9 +108,9 @@ const ContactUs = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email or Phone</label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 value={formData.email}
