@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import banner1 from '../assets/banner1.jpg';
 import banner2 from '../assets/banner2.jpg';
 import banner3 from '../assets/banner3.jpg';
+import banner9 from '../assets/banner9.jpg'; // Ensure this file exists
 
 const Home = () => {
   const [expandedCards, setExpandedCards] = useState({});
@@ -166,7 +167,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Topics Section */}
+       {/* Topics Section */}
       <div className="topics-section">
         <div className="topics-grid">
           {topics.map(topic => (
@@ -174,12 +175,10 @@ const Home = () => {
               <h3>{topic.title}</h3>
               <div>
                 {expandedCards[topic.id] ? (
-                  // Show all paragraphs when expanded
                   topic.content.map((paragraph, index) => (
                     <p key={index}>{paragraph}</p>
                   ))
                 ) : (
-                  // Show only first paragraph with ellipsis when collapsed
                   <p>{topic.content[0].substring(0, 100)}...</p>
                 )}
               </div>
@@ -191,6 +190,24 @@ const Home = () => {
               </button>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ✅ Pastor Section */}
+      <div className="pastor-section flex flex-col md:flex-row items-center justify-center bg-gray-100 py-10 px-6 mt-10">
+        {/* Pastor Image */}
+        <div className="w-40 h-40 md:w-60 md:h-60 overflow-hidden rounded-full shadow-lg">
+          <img
+            src={banner9}
+            alt="Pastor Charles"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Pastor Name */}
+        <div className="mt-4 md:mt-0 md:ml-20 text-center md:text-left">
+          <h2 className="text-2xl font-bold text-gray-800">Pr. Charles Nyakundi</h2>
+          <p classname="text-gray-600">"The Spirit of Christ is a missionary spirit. It is the spirit that actuated Christ when He was on earth, and it is the spirit that will actuate His followers. It is the spirit that impelled Him to go about doing good, healing the sick, and preaching the gospel to the poor. This is the spirit that we are to cherish and cultivate."</p>
         </div>
       </div>
     </div>

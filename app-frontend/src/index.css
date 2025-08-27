@@ -895,3 +895,55 @@ button[type="submit"]:hover {
 .visit-channel-btn:hover {
   background: #a0201a;
 }
+
+.pastor-section {
+  display: flex;
+  flex-direction: column;        /* stack on small screens */
+  align-items: center;
+  justify-content: center;
+  background-color: #f3e4e4;     /* light gray background */
+  padding: 2.5rem 1.5rem;
+  margin-top: 2.5rem;
+  border-radius: 12px;
+}
+
+.pastor-section img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;            /* circle */
+  object-fit: cover;
+  object-position: top center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.pastor-details {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.pastor-details h2 {
+  font-size: 1.0rem;
+  font-weight: 400;
+  color: #2d2d2d;
+}
+
+.pastor-details p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Responsive: side by side on medium screens */
+@media (min-width: 768px) {
+  .pastor-section {
+    flex-direction: row;
+  }
+  .pastor-details {
+    margin-left: 2rem;
+    margin-top: 0;
+    text-align: left;
+  }
+  .pastor-section img {
+    width: 260px;
+    height: 260px;
+  }
+}

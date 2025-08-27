@@ -75,7 +75,7 @@ const ContactUs = () => {
 
           <div className="map-container">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15923.812507480856!2d39.77555775272313!3d-3.8201958384574173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x183ff1beeabdb477%3A0x5ddd9c58a770fc7!2sSDA%20church%20Vipingo!5e0!3m2!1sen!2ske!4v1753028275643!5m2!1sen!2ske"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15923.871458708072!2d39.80735996095634!3d-3.817017928317467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x183ffb01934cac17%3A0x3d59bef12f2906e6!2sVipingo%20SDA!5e0!3m2!1sen!2ske!4v1756308971442!5m2!1sen!2ske"
               width="100%"
               height="300"
               style={{ border: 0 }}
