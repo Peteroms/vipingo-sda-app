@@ -5,7 +5,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import banner1 from '../assets/banner1.jpg';
 import banner2 from '../assets/banner2.jpg';
 import banner3 from '../assets/banner3.jpg';
-import banner9 from '../assets/banner9.jpg'; // Ensure this file exists
+import banner9 from '../assets/banner9.jpg';
+import banner10 from '../assets/banner10.jpg';
 
 const Home = () => {
   const [expandedCards, setExpandedCards] = useState({});
@@ -140,7 +141,7 @@ const Home = () => {
     <div className="page home">
       {/* Image Slider */}
       <div className="home-banner">
-        <Slider {...sliderSettings}>
+        <Slider {...{ ...sliderSettings, fade: true }}>
           <div>
             <img src={banner1} alt="Church Banner 1" />
           </div>
@@ -149,6 +150,9 @@ const Home = () => {
           </div>
           <div>
             <img src={banner3} alt="Church Banner 3" />
+          </div>
+          <div>
+            <img src={banner10} alt="Church Banner 4" />
           </div>
         </Slider>
       </div>
@@ -205,7 +209,7 @@ const Home = () => {
         </div>
 
         {/* Pastor Name */}
-        <div className="mt-4 md:mt-0 md:ml-20 text-center md:text-left">
+        <div className="mt-4 md:mt-0 md:ml-12 text-center md:text-left">
           <h2 className="text-2xl font-bold text-gray-800">Pr. Charles Nyakundi</h2>
           <p classname="text-gray-600">"The Spirit of Christ is a missionary spirit. It is the spirit that actuated Christ when He was on earth, and it is the spirit that will actuate His followers. It is the spirit that impelled Him to go about doing good, healing the sick, and preaching the gospel to the poor. This is the spirit that we are to cherish and cultivate."</p>
         </div>
