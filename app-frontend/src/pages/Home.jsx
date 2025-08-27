@@ -97,15 +97,33 @@ const Home = () => {
         "Not at all. It refers only to the annual, ceremonial sabbaths that were a shadow of things to come and not to the seventh-day Sabbath. There were seven yearly holy days, or festivals, in ancient Israel that were also called sabbaths (see Leviticus 23). These were in addition to, or besides the Sabbaths of the Lord (Leviticus 23:38), or seventh-day Sabbath. Their main significance was in foreshadowing, or pointing to, the cross and ended at the cross. God’s seventh-day Sabbath was made before Adam’s sin, and therefore could foreshadow nothing about deliverance from sin. That’s why Colossians 2 differentiates and specifically mentions the sabbaths that were a shadow.",
         "7. According to Romans 14:5, isn’t the day we keep a matter of personal opinion?",
         "Notice that the whole chapter is on judging one another (verses 4, 10, 13) over doubtful things (verse 1). The issue here is not over the seventh-day Sabbath, which is a part of the moral law, but over other religious days. Jewish Christians were judging Gentile Christians for not observing them. Paul is simply saying, Don’t judge each other. That ceremonial law is no longer binding.",
-
-
       ]
     },
     {
       id: 4,
-      title: "Youth Programs",
+      title: "God's Free Health Plan",
       content: [
-        "Our youth programs are designed to help young people develop their faith while building meaningful relationships. We offer a variety of activities, from retreats to service projects, that encourage spiritual growth and character development."
+        "Good medical care is priceless but wouldn’t it be great if we didn’t need doctors anymore? Well, did you know there is a proven way to put a lot of doctors out of work? Take care of your body! Scientists have sounded the alarm about cholesterol, tobacco, stress, obesity, and alcohol, so why press your luck? God truly cares how you treat your body, and He’s given you a free health plan to go bythe Bible! For amazing facts about how you can have abundant health and longer life, look over this Study Guide.",
+        "1. Are health principles really a part of true Bible religion?",
+        "Beloved, I pray that you may prosper in all things and be in health, just as your soul prospers (3 John 1:2).",
+        "Answer: Yes. The Bible rates health right near the top of the list in importance. A person’s mind, spiritual nature, and body are all interrelated and interdependent. What affects one affects the others. If the body is misused, the mind and the spiritual nature cannot become what God planned they should beand you won’t be able to live an abundant life. (See John 10:10.)",
+        "2. Why did God give health principles to His people?",
+        "The Lord commanded us to observe all these statutes, to fear the Lord our God, for our good always, that He might preserve us alive (Deuteronomy 6:24).",
+        "You shall serve the Lord your God, and He will bless your bread and your water. And I will take sickness away from the midst of you (Exodus 23:25).",
+        "Answer: God gave health principles because He knows what is best for the human body. Automobile manufacturers place an operations manual in the glove compartment of each new car because they know what is best for their creation. God, who made our bodies, also has an operations manual. It is the Bible. Ignoring God’s operations manual often results in disease, twisted thinking, and burned-out lives, just as abusing a car can result in serious car trouble. Following God’s principles results in saving health (Psalm 67:2 KJV) and more abundant life (John 10:10). With our cooperation, God can use these great health laws to significantly reduce and eliminate the effects of the diseases of Satan (Psalm 103:2, 3).",
+        "3. What are some of the simple yet important health laws found in the Bible?",
+        "Answer:  Here are 11 Bible health principles:",
+        "Answer A. Eat your meals at regular intervals, and do not use animal fat or blood. Feast [eat] at the proper time (Ecclesiastes 10:17). This shall be a perpetual statute you shall eat neither fat nor blood (Leviticus 3:17).",
+        "Note: Science has confirmed that most heart attacks result from high cholesteroland that the use of fats is largely responsible for high levels of cholesterol. It looks like the Lord knows what He is talking about after all, doesn’t it?",
+        "Answer B. Don’t overeat. Put a knife to your throat if you are a man given to appetite (Proverbs 23:2). In Luke 21:34, Christ specifically warned against carousing (intemperance) in the last days. Overeating, a form of intemperance, is responsible for many degenerative diseases.",
+        "Answer C. Don’t harbor envy or hold grudges. These kinds of sinful feelings actually disrupt body processes. The Bible says that envy is rottenness to the bones (Proverbs 14:30). Christ even commanded us to clear up grudges that others might hold against us (Matthew 5:23, 24).",
+        "Answer D. Maintain a cheerful, happy disposition. A merry heart does good, like medicine (Proverbs 17:22). As he thinks in his heart, so is he (Proverbs 23:7). Many diseases from which people suffer are a result of depression. A cheerful, happy disposition imparts health and prolongs life!",
+        "Answer E.Put full trust in the Lord. The fear of the Lord leads to life, and he who has it will abide in satisfaction (Proverbs 19:23). Trust in the Lord strengthens health and life. My son, give attention to my words for they are life to those who find them, and health to all their flesh (Proverbs 4:20, 22). Health comes from obedience to God’s commands and from putting full trust in Him.",
+        "Answer F. Balance work and exercise with sleep and rest. Six days you shall labor and do all your work, but the seventh day is the Sabbath of the Lord your God. In it you shall do no work (Exodus 20:9, 10). The sleep of a laboring man is sweet (Ecclesiastes 5:12). In the sweat of your face you shall eat bread (Genesis 3:19). It is vain for you to rise up early, to sit up late (Psalm 127:2). For what has man for all his labor, and for the striving of his heart with which he has toiled under the sun? Even in the night his heart takes no rest. This also is vanity (Ecclesiastes 2:22, 23).",
+        "Answer G. Keep your body clean. Be clean (Isaiah 52:11).",
+        "Answer H. Be temperate in all things. Everyone who competes for the prize is temperate in all things (1 Corinthians 9:25). Let your gentleness [KJV: moderation] be known to all men (Philippians 4:5).",
+        "Answer J. Make mealtime a happy time. Every man should eat and drink and enjoy the good of all his labor it is the gift of God (Ecclesiastes 3:13). Unhappy scenes at mealtime hinder digestion. Avoid them.",
+        "Answer K. Help those who are in need. Loose the bonds of wickedness undo the heavy burdens share your bread with the hungry, and bring to your house the poor who are cast out; when you see the naked cover him, and your healing shall spring forth speedily (Isaiah 58:6–8). This is too plain to misunderstand: When we help the poor and needy, we improve our own health.",
       ]
     }
   ];
