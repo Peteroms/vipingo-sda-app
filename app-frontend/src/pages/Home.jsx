@@ -75,9 +75,30 @@ const Home = () => {
     },
     {
       id: 3,
-      title: "Bible Study",
+      title: "The Lost Day of History",
       content: [
-        "Join our weekly Bible study sessions where we explore scripture and discuss its relevance to our daily lives. These gatherings provide opportunities for spiritual growth, fellowship, and deeper understanding of God's word in a supportive environment."
+        "Did you know there is a very important day in the Bible that almost everyone has forgotten about? It’s astounding that only a few people are aware of it, because it’s one of the most significant days in all of human history! It’s not only a day in the past, but it also has meaning for us now and in the future. Furthermore, what happens on this neglected day can have a positive effect on your life. Want to know more amazing facts about this lost day of history? Then read over this Study Guide carefully.",
+        "1. On what day did Jesus customarily worship?",
+        "'And he came to Nazareth, where he had been brought up: and, as his custom was, he went into the synagogue on the sabbath day, and stood up for to read.' Luke 4:16.",
+        "Answer: Jesus customarily worshiped on the Sabbath.",
+        "2. But which day of history has been lost?",
+        "The seventh day is the Sabbath of the Lord your God (Exodus 20:10). When the Sabbath was past very early in the morning, on the first day of the week, they came to the tomb when the sun had risen (Mark 16:1, 2).",
+        "Answer: A little detective work is necessary to answer this question. Many believe that the Sabbath is the first day of the week, Sunday, but the Bible actually says that the Sabbath is the day that comes just before the first day of the week. According to Scripture, the Sabbath is the seventh day of the weekthat is, Saturday.",
+        "3. Where did the Sabbath come from?",
+        "In the beginning God created the heavens and the earth. And on the seventh day God ended His work which He had done, and He rested on the seventh day from all His work which He had done. Then God blessed the seventh day and sanctified it (Genesis 1:1; 2:2, 3).",
+        "Answer: God made the Sabbath at the time of Creation, when He made the world. He rested on the Sabbath and blessed and sanctified itthat is, He set it apart for a holy use.",
+        "4. What does God say about the Sabbath in the Ten Commandments?",
+        "Remember the Sabbath day, to keep it holy. Six days you shall labor and do all your work, but the seventh day is the Sabbath of the Lord your God. In it you shall do no work: you, nor your son, nor your daughter, nor your male servant, nor your female servant, nor your cattle, nor your stranger who is within your gates. For in six days the Lord made the heavens and the earth, the sea, and all that is in them, and rested the seventh day. Therefore the Lord blessed the Sabbath day and hallowed it (Exodus 20:8–11).",
+        "Answer: In the fourth of the Ten Commandments, God says we are to observe the seventh-day Sabbath as His holy day. It seems God knew that people would be prone to forget His Sabbath, so He began this commandment with the word remember.",
+        "5. But haven’t the Ten Commandments been changed?",
+        "Exodus 20:1 says, God spoke all these words, saying [the Ten Commandments follow in verses 2–17]. God said, My covenant I will not break, nor alter the word that has gone out of My lips (Psalm 89:34). Jesus said, It is easier for heaven and earth to pass away than for one tittle of the law to fail (Luke 16:17).",
+        "Answer: No, indeed! It is impossible for any of God’s moral law to change. All Ten Commandments are still binding today. Just as the other nine commandments haven’t changed, neither has the fourth commandment.",
+        "6. Doesn’t Colossians 2:14–17 do away with the seventh-day Sabbath?",
+        "Not at all. It refers only to the annual, ceremonial sabbaths that were a shadow of things to come and not to the seventh-day Sabbath. There were seven yearly holy days, or festivals, in ancient Israel that were also called sabbaths (see Leviticus 23). These were in addition to, or besides the Sabbaths of the Lord (Leviticus 23:38), or seventh-day Sabbath. Their main significance was in foreshadowing, or pointing to, the cross and ended at the cross. God’s seventh-day Sabbath was made before Adam’s sin, and therefore could foreshadow nothing about deliverance from sin. That’s why Colossians 2 differentiates and specifically mentions the sabbaths that were a shadow.",
+        "7. According to Romans 14:5, isn’t the day we keep a matter of personal opinion?",
+        "Notice that the whole chapter is on judging one another (verses 4, 10, 13) over doubtful things (verse 1). The issue here is not over the seventh-day Sabbath, which is a part of the moral law, but over other religious days. Jewish Christians were judging Gentile Christians for not observing them. Paul is simply saying, Don’t judge each other. That ceremonial law is no longer binding.",
+
+
       ]
     },
     {
