@@ -5,14 +5,14 @@ const OnlineGiving = () => {
     name: '',
     mpesaNumber: '',
     membership: 'vipingo', // Default selection
-    tithes: 0,
-    combinedOffering: 0,
-    localChurchBudget: 0,
-    churchDevelopment: 0,
-    campMeetingOffering: 0,
-    campMeetingExpenses: 0,
-    thanksgiving: 0,
-    evangelism: 0
+    tithes: "",
+    combinedOffering: "",
+    localChurchBudget: "",
+    churchDevelopment: "",
+    campMeetingOffering: "",
+    campMeetingExpenses: "",
+    thanksgiving: "",
+    evangelism: ""
   });
 
   const membershipOptions = [
@@ -30,7 +30,7 @@ const OnlineGiving = () => {
   useEffect(() => {
     const sum = Object.entries(formData)
       .filter(([key]) => !['name', 'mpesaNumber', 'membership'].includes(key))
-      .reduce((acc, [_, value]) => acc + Number(value), 0);
+      .reduce((acc, [_, value]) => acc + Number(value || 0), 0);
     setTotal(sum);
   }, [formData]);
 
@@ -38,9 +38,7 @@ const OnlineGiving = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'membership' ? value : 
-              name.includes('Number') ? value : 
-              Math.max(0, Number(value))
+      [name]: name === 'membership' ? value : value // keep as string so input can be blank
     }));
   };
 
@@ -55,81 +53,40 @@ const OnlineGiving = () => {
       total: total,
       timestamp: new Date().toISOString()
     };
-    
+
     try {
-      // Simulate API call. Submit form data to DynamoDB.
-      const response = await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/giving', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+      // Only ONE call to your API Gateway → Lambda
+      const response = await fetch(
+        'https://hzi32vheqg.execute-api.us-east-1.amazonaws.com/prod/giving',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to submit giving, please try again.');
       }
 
-      // Trigger M-Pesa STK Push
-      const mpesaResponse = await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/mpesa/pay', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phone: formData.mpesaNumber,
-          amount: total,
-          transactionId: `GIVING-${Date.now()}`
-        })
-      });
-
-      if (!mpesaResponse.ok) {
-        throw new Error('Failed to initiate M-Pesa payment.');
-      }
-
-      // Send SMS nottifications
-      const smsMessage = `Thank you ${formData.name} for your giving of KSh ${total} to Vipingo SDA Church.`;
-
-      const treasurerMessage = `New giving received:\nName: ${formData.name}\nAmount: KSh ${total}\nCategory: ${formData.membership}`;
-
-      await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/sms/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phone: formData.mpesaNumber,
-          message: smsMessage
-        })
-      });
-
-      await fetch('https://gttca8x6n1.execute-api.us-east-1.amazonaws.com/prod/sms/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phone: process.env.TreasurerPnoneNumber, // Replace with actual treasurer's phone
-          message: treasurerMessage
-        })
-      });
-
       setSubmitSuccess(true);
+      // Reset form
       setFormData({
         name: '',
         mpesaNumber: '',
         membership: 'vipingo',
-        tithes: 0,
-        combinedOffering: 0,
-        localChurchBudget: 0,
-        churchDevelopment: 0,
-        campMeetingOffering: 0,
-        campMeetingExpenses: 0,
-        thanksgiving: 0,
-        evangelism: 0
+        tithes: "",
+        combinedOffering: "",
+        localChurchBudget: "",
+        churchDevelopment: "",
+        campMeetingOffering: "",
+        campMeetingExpenses: "",
+        thanksgiving: "",
+        evangelism: ""
       });
     } catch (error) {
       console.error('Submission error:', error);
+      setErrorMsg(error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -140,7 +97,8 @@ const OnlineGiving = () => {
       <div className="giving-container">
         <h1> Giving Form</h1>
         <p className="giving-intro">
-           “Bring the whole tithe into the storehouse... Test me in this,” says the Lord Almighty, “and see if I will not throw open the floodgates of heaven...” - Malachi 3:10
+          “Bring the whole tithe into the storehouse... Test me in this,” says the Lord Almighty,
+          “and see if I will not throw open the floodgates of heaven...” - Malachi 3:10
         </p>
 
         <form onSubmit={handleSubmit} className="giving-form">
@@ -157,7 +115,7 @@ const OnlineGiving = () => {
                 required
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="mpesaNumber">M-Pesa Phone Number</label>
               <input
@@ -171,7 +129,7 @@ const OnlineGiving = () => {
                 required
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="membership">Membership</label>
               <select
@@ -195,7 +153,7 @@ const OnlineGiving = () => {
             <h2>Your Giving</h2>
             <div className="giving-grid">
               <div className="form-group">
-                <label htmlFor="tithes">Tithes (10%)</label>
+                <label htmlFor="tithes">Tithe (10%)</label>
                 <input
                   type="number"
                   id="tithes"
@@ -205,7 +163,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="combinedOffering">Combined Offering</label>
                 <input
@@ -217,7 +175,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="localChurchBudget">Local Church Budget</label>
                 <input
@@ -229,7 +187,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="churchDevelopment">Church Development</label>
                 <input
@@ -241,7 +199,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="campMeetingOffering">Camp Meeting Offering</label>
                 <input
@@ -253,7 +211,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="campMeetingExpenses">Camp Meeting Expenses</label>
                 <input
@@ -265,7 +223,7 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="thanksgiving">Thanksgiving Offering</label>
                 <input
@@ -277,14 +235,14 @@ const OnlineGiving = () => {
                   min="0"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="evangelism">Evangelistic Missions</label>
                 <input
                   type="number"
                   id="evangelism"
                   name="evangelism"
-                  value={formData.welfare}
+                  value={formData.evangelism}
                   onChange={handleChange}
                   min="0"
                 />
@@ -298,12 +256,12 @@ const OnlineGiving = () => {
           </div>
 
           <div className="form-actions">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="submit-btn"
               disabled={isSubmitting || total === 0}
             >
-              {isSubmitting ? 'Processing...' : 'Submit Giving via M-Pesa'}
+              {isSubmitting ? 'Processing...' : 'Submit Giving'}
             </button>
           </div>
 
@@ -318,7 +276,6 @@ const OnlineGiving = () => {
               {errorMsg}
             </div>
           )}
-
         </form>
       </div>
     </div>
